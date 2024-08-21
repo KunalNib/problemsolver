@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Problem Finder and Solver</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Problem Finder and Solver</h1>
+        <nav>
+            <ul>
+                <li><button onclick="location.href='index.html'">Home</button></li>
+                <li><button onclick="location.href='about.html'">About</button></li>
+                <li><button onclick="location.href='solutions.html'">Solutions</button></li>
+                <li><button onclick="location.href='report.html'">Report Problem</button></li>
+                <li><button onclick="location.href='contact.html'">Contact</button></li>
+                <li><button onclick="location.href='admin-login.html'">Admin Login</button></li>
+                <li><button onclick="location.href='user-login.html'">User login</button></li>
+                <button class="theme-switcher">Switch Theme</button>
+
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <section id="home">
+            <div class="hero">
+                <h2>Welcome to the Problem Finder and Solver System</h2>
+                <p>Find and solve problems efficiently and collaboratively.</p>
+                <button onclick="location.href='about.html'">Learn More</button>
+            </div>
+        </section>
+        
+        <section class="content-section">
+            <h2>How It Works</h2>
+            <p>Our platform allows users to report problems and find solutions from a community of problem solvers.</p>
+        </section>
+
+        <section class="content-section">
+            <h2>Features</h2>
+            <ul>
+                <li>User-friendly interface</li>
+                <li>Real-time collaboration</li>
+                <li>Secure login for users and admins</li>
+                <li>Extensive problem-solving tools</li>
+            </ul>
+        </section><script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeSwitcher = document.querySelector('.theme-switcher');
+            themeSwitcher.addEventListener('click', () => {
+                document.body.classList.toggle('dark-theme');
+            });
+        });</script>
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 Problem Finder and Solver. All rights reserved.</p>
+    </footer>
+</body>
+</html>

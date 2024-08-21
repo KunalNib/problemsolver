@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Problem - Problem Finder and Solver</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Problem Finder and Solver</h1>
+        <nav>
+            <ul>
+                <li><button onclick="location.href='index.html'">Home</button></li>
+                <li><button onclick="location.href='about.html'">About</button></li>
+                <li><button onclick="location.href='solutions.html'">Solutions</button></li>
+                <li><button onclick="location.href='report.html'">Report Problem</button></li>
+                <li><button onclick="location.href='contact.html'">Contact</button></li>
+                <li><button onclick="location.href='admin-login.html'">Admin Login</button></li>
+                <li><button onclick="location.href='user-login.html'">User Login</button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <section class="report-section">
+            <h2>Report a Problem</h2>
+            <form id="report-form">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" required>
+                
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" rows="4" required></textarea>
+                
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 Problem Finder and Solver. All rights reserved.</p>
+    </footer>
+    
+    <script>
+        document.getElementById('report-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+
+            try {
+                const response = await fetch('http://localhost:5000/api/problems', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title, description })
+                });
+
+                if (response.ok) {
+                    alert('Problem reported successfully!');
+                    document.getElementById('report-form').reset();
+                } else {
+                    alert('Failed to report problem.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to report problem.');
+            }
+        });
+    </script>
+</body>
+</html>

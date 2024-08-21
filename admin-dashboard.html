@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Problem Finder and Solver</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Problem Finder and Solver</h1>
+        <nav>
+            <ul>
+                <li><button onclick="location.href='index.html'">Home</button></li>
+                <li><button onclick="location.href='about.html'">About</button></li>
+                <li><button onclick="location.href='solutions.html'">Solutions</button></li>
+                <li><button onclick="location.href='report.html'">Report Problem</button></li>
+                <li><button onclick="location.href='contact.html'">Contact</button></li>
+                <li><button onclick="location.href='admin-login.html'">Admin Login</button></li>
+                <li><button onclick="location.href='user-login.html'">User login</button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <section class="dashboard-section">
+            <h2>Admin Dashboard</h2>
+            <h3>Reported Problems</h3>
+            <div id="problems-list" class="problems-list">
+                <!-- Problems will be populated here by JavaScript -->
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 Problem Finder and Solver. All rights reserved.</p>
+    </footer>
+    
+    <script>
+        async function loadProblems() {
+            try {
+                const response = await fetch('http://localhost:5000/api/problems');
+                if (response.ok) {
+                    const problems = await response.json();
+                    const problemsList = document.getElementById('problems-list');
+                    
+                    problemsList.innerHTML = problems.map(problem => `
+                        <div class="problem-item">
+                            <h4>${problem.title}</h4>
+                            <p>${problem.description}</p>
+                            <small>Reported on ${new Date(problem.reportedAt).toLocaleDateString()}</small>
+                            <button class="delete-button" onclick="deleteProblem('${problem._id}')">Delete</button>
+                        </div>
+                    `).join('');
+                } else {
+                    console.error('Failed to load problems.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        async function deleteProblem(id) {
+            try {
+                const response = await fetch(`http://localhost:5000/api/problems/${id}`, { method: 'DELETE' });
+                if (response.ok) {
+                    const result = await response.json();
+                    if (result.message === 'Problem deleted') {
+                        loadProblems(); // Refresh the list after deletion
+                    } else {
+                        console.error('Error deleting problem:', result.message);
+                    }
+                } else {
+                    console.error('Failed to delete problem.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        loadProblems();
+    </script>
+</body>
+</html>
+
+
